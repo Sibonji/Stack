@@ -1,8 +1,3 @@
-#define print_error                                                                         \
-        printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
-
-////////////////////////////////////////////////////////////////////////////////////////
-
 typedef int Data;
 typedef int Canary;
 
@@ -12,8 +7,8 @@ typedef struct
 
     int hash;
 
-    int capacity;             //Ð’Ð¼ÐµÑÑ‚Ð¸Ð¼Ð¾ÑÑ‚ÑŒ ÑÑ‚ÑÐºÐ° (Ð² Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸ recalloc_stack ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÑ‚ÑÑ, ÐºÐ°Ðº Ð½Ñ‹Ð½ÐµÑˆÐ½ÐµÐµ
-    int ptr;                  //ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ñ‹Ñ… Ñ‚Ð¸Ð¿Ð° Data
+    int capacity;             //Âìåñòèìîñòü ñòýêà (â ôóíêöèè recalloc_stack ñïîëüçóåòñÿ, êàê íûíåøíåå
+    int ptr;                  //êîëè÷åñòâî ïåðåìåííûõ òèïà Data
 
     Data * data;
 
@@ -54,7 +49,7 @@ int construct         (Stack * my_st, int num)
 
     if (my_st -> data == NULL)
     {
-        print_error;
+        printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
 
         exit (1);
     }
@@ -69,7 +64,7 @@ int construct         (Stack * my_st, int num)
 
     if (check_stack (my_st) == 1)
         {
-        print_error;
+        printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
 
         destroy (my_st);
 
@@ -85,7 +80,7 @@ int push              (Stack * my_st, int num)
     {
     if (check_stack (my_st) == 1)
         {
-        print_error;
+        printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
 
         destroy (my_st);
 
@@ -106,7 +101,7 @@ int push              (Stack * my_st, int num)
 
     if (check_stack (my_st) == 1)
         {
-        print_error;
+        printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
 
         destroy (my_st);
 
@@ -122,7 +117,7 @@ int dump              (Stack * my_st)
     {
     if (check_stack (my_st) == 1)
         {
-        print_error;
+        printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
 
         destroy (my_st);
 
@@ -145,7 +140,7 @@ int dump              (Stack * my_st)
 
     if (check_stack (my_st) == 1)
         {
-        print_error;
+        printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
 
         destroy (my_st);
 
@@ -161,7 +156,7 @@ int pop               (Stack * my_st)
     {
     if (check_stack (my_st) == 1)
         {
-        print_error;
+        printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
 
         destroy (my_st);
 
@@ -174,7 +169,7 @@ int pop               (Stack * my_st)
 
     if (check_stack (my_st) == 1)
         {
-        print_error;
+        printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
 
         destroy (my_st);
 
@@ -205,7 +200,7 @@ void * calloc_stack   (Stack * my_st)
 
     if (ptr == NULL)
         {
-        print_error;
+        printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
 
         dump    (my_st);
         destroy (my_st);
@@ -230,7 +225,7 @@ void * recalloc_stack (Stack * my_st)
     {
     if (check_stack (my_st) == 1)
         {
-        print_error;
+        printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
 
         destroy (my_st);
 
@@ -245,7 +240,7 @@ void * recalloc_stack (Stack * my_st)
 
     if (ptr == NULL)
         {
-        print_error;
+        printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
 
         dump (my_st);
         destroy (my_st);
@@ -260,7 +255,7 @@ void * recalloc_stack (Stack * my_st)
 
     if ((isok_adr (my_st)) == 0)
         {
-        print_error;
+        printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
 
         dump (my_st);
         destroy (my_st);
