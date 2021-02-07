@@ -7,8 +7,8 @@ typedef struct
 
     int hash;
 
-    int capacity;             //Ð’Ð¼ÐµÑÑ‚Ð¸Ð¼Ð¾ÑÑ‚ÑŒ ÑÑ‚ÑÐºÐ° (Ð² Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸ recalloc_stack ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÑ‚ÑÑ, ÐºÐ°Ðº Ð½Ñ‹Ð½ÐµÑˆÐ½ÐµÐµ
-    int ptr;                  //ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ñ‹Ñ… Ñ‚Ð¸Ð¿Ð° Data
+    int capacity;             //Âìåñòèìîñòü ñòýêà (â ôóíêöèè recalloc_stack ñïîëüçóåòñÿ, êàê íûíåøíåå
+    int ptr;                  //êîëè÷åñòâî ïåðåìåííûõ òèïà Data
 
     Data * data;
 
@@ -30,11 +30,11 @@ void * calloc_stack      (Stack * my_st);
 void * recalloc_stack    (Stack * my_st);
 int    isok_adr          (Stack * my_st);
 int    check_stack       (Stack * my_st);
+int    count_hash        (Stack * my_st);
 int    push              (Stack * my_st, int num);
 int    construct         (Stack * my_st, int num);
 int    cmpneq            (Stack * my_st, int current, int standart);
 int    cmpeq             (Stack * my_st, int current, int standart);
-int    count_hash        (Stack * my_st);
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -48,11 +48,11 @@ int construct         (Stack * my_st, int num)
     my_st -> data         = (Data *) calloc_stack (my_st);
 
     if (my_st -> data == NULL)
-    {
+        {
         printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
 
-        exit (1);
-    }
+        exit (3);
+        }
 
     int  i = 0;
     for (i = 0; i < my_st -> capacity; i++)
@@ -183,9 +183,9 @@ int pop               (Stack * my_st)
 
 void destroy           (Stack * my_st)
     {
-    free (my_st -> data);
-    free (my_st -> canary_start);
-    free (my_st -> canary_end);
+    if (my_st -> data != NULL)         free (my_st -> data);
+    if (my_st -> canary_start != NULL) free (my_st -> canary_start);
+    if (my_st -> canary_end != NULL)   free (my_st -> canary_end);
 
     return;
     }
@@ -200,11 +200,6 @@ void * calloc_stack   (Stack * my_st)
 
     if (ptr == NULL)
         {
-        printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
-
-        dump    (my_st);
-        destroy (my_st);
-
         return NULL;
         }
 
@@ -257,11 +252,14 @@ void * recalloc_stack (Stack * my_st)
         {
         printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
 
-        dump (my_st);
         destroy (my_st);
 
         return NULL;
         }
+
+    my_st -> data = (Data *) (ptr + sizeof (Canary));
+
+
 
     return (ptr + sizeof (Canary));
     }
