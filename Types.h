@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define print_err printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
+
 #define getname(var) #var
 #define Canary int
 
