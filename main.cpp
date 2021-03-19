@@ -1,17 +1,7 @@
 #include "Types.h" //Библиотека, с обьявлениями функций нужных для работы стэка с различными типами данных
 
-#define print_err printf ("A critical programm error has occured.\nFile:%s\nLine: %d\n", __FILE__, __LINE__);
-
 #define TYPE float
 #include "Stack.h"
-void print (TEMPLATE(Stack, TYPE) my_st);
-
-void print (TEMPLATE(Stack, TYPE) stk) {
-
-    stk.dump ();
-
-    return;
-}
 #undef TYPE
 
 #define TYPE int
