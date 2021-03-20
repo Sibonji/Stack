@@ -35,7 +35,7 @@ class TEMPLATE (Stack, TYPE) {
     TEMPLATE (Stack, TYPE) (int quant);
     ~TEMPLATE (Stack, TYPE) ();
     TEMPLATE (Stack, TYPE) (const TEMPLATE(Stack, TYPE)& obj);
-    int    pop               ();
+    TYPE    pop               ();
     int    dump              ();
     void * calloc_stack      ();
     void * recalloc_stack    ();
@@ -238,8 +238,7 @@ int TEMPLATE (Stack, TYPE)::dump              () {
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-int TEMPLATE (Stack, TYPE)::pop               () {
-
+TYPE TEMPLATE (Stack, TYPE)::pop               () {
     if (check_stack () == 1)
     {
         //print_err;
@@ -247,7 +246,9 @@ int TEMPLATE (Stack, TYPE)::pop               () {
         exit (3);
     }
 
-    (data)[--ptr] =  TEMPLATE(poison, TYPE);
+    TYPE value = data[--ptr];
+
+    data[ptr] =  TEMPLATE(poison, TYPE);
 
     hash = count_hash ();
 
@@ -258,7 +259,7 @@ int TEMPLATE (Stack, TYPE)::pop               () {
         exit (3);
     }
 
-    return 1;
+    return value;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
